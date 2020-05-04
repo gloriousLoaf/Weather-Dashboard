@@ -1,0 +1,61 @@
+/* Global */ 
+* {
+    max-width: 100vw;
+}
+
+/* Navbar */ 
+.navbar-brand {
+    font-size: 2em;
+    margin: -12px 0 -7px 0;
+    padding-right: -20px;
+}
+
+/* Sidebar */ 
+#search-header {
+    padding-top: 10px;
+    padding-left: 2px;
+}
+
+#city-search {
+    margin-left: -15px;
+}
+
+/* Main View */ 
+#current-view {
+    margin-top: 20px;
+}
+
+#city-stats li {
+    display: inline-block;
+    list-style: none;
+}
+
+#city-time {
+    float: right;
+}
+
+#city-stats p {
+    padding: 3px 0;
+}
+
+#city-stats #temp {
+    padding-top: 8px;
+}
+
+#city-stats #uv-index {
+    margin-bottom: -5px;
+}
+
+/* 5 Day Forecast */ 
+#five-day {
+    margin-top: 10px;
+}
+
+.five-cards {
+    color: #fff;
+}
+
+.five-cards .card-title {
+    font-size: 1.2em;
+    font-weight: 500;
+}
