@@ -24,13 +24,16 @@
                 <!-- search bar -->
                 <h6 id="search-header">Search for a City:</h6>
                 <div class="col-sm-10 input-group">
+                    <!-- search input -->
                     <input class="form-control shadow-none" id="city-search" type="text" placeholder="Where to next?">
+                    <!-- append search button to input -->
                     <div class="input-group-append">
                         <button class="btn btn-primary shadow-none" type="button"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
                 <br>
                 <!-- search history, dynamically filled by js -->
+                <!-- this might change. a lot. -->
                 <div class="card search-history">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Your Search History</li>
@@ -55,7 +58,8 @@
                 <div class="card card-body" id="current-view">
                     <div class="card-title" id="city-stats">
                         <li>
-                            <h4 id="city-name">City Placeholder</h4>
+                            <!-- city & stats <p>s will be filled dynamically -->
+                            <h4 id="city-name">See sidebar to start</h4>
                         </li>
                         <li id="city-time"></li>
                         <p id="temp">Temperature:</p>
@@ -70,52 +74,47 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-body">
-                                    <div class="card-title">Date</div>
-                                    <p>&nbsp;</p>
-                                    <p>Temp:</p>
-                                    <p>Humidity:</p>
-                                </div>
+                                <div class="card-title">Date</div>
+                                <img class="icons" id="icon1">
+                                <p id="high1">High:</p>
+                                <p id="low1">Low:</p>
+                                <p id="hum1">Humidity:</p>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-body">
-                                    <div class="card-title">Date</div>
-                                    <p>&nbsp;</p>
-                                    <p>Temp:</p>
-                                    <p>Humidity:</p>
-                                </div>
+                                <div class="card-title">Date</div>
+                                <img class="icons" id="icon2">
+                                <p id="high2">High:</p>
+                                <p id="low2">Low:</p>
+                                <p id="hum2">Humidity:</p>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-body">
-                                    <div class="card-title">Date</div>
-                                    <p>&nbsp;</p>
-                                    <p>Temp:</p>
-                                    <p>Humidity:</p>
-                                </div>
+                                <div class="card-title">Date</div>
+                                <img class="icons" id="icon3">
+                                <p id="high3">High:</p>
+                                <p id="low3">Low:</p>
+                                <p id="hum3">Humidity:</p>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-body">
-                                    <div class="card-title">Date</div>
-                                    <p>&nbsp;</p>
-                                    <p>Temp:</p>
-                                    <p>Humidity:</p>
-                                </div>
+                                <div class="card-title">Date</div>
+                                <img class="icons" id="icon4">
+                                <p id="high4">High:</p>
+                                <p id="low4">Low:</p>
+                                <p id="hum4">Humidity:</p>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-body">
-                                    <div class="card-title">Date</div>
-                                    <p>&nbsp;</p>
-                                    <p>Temp:</p>
-                                    <p>Humidity:</p>
-                                </div>
+                                <div class="card-title">Date</div>
+                                <img class="icons" id="icon5">
+                                <p id="high5">High:</p>
+                                <p id="low5">Low:</p>
+                                <p id="hum5">Humidity:</p>
                             </div>
                         </div>
                     </div>

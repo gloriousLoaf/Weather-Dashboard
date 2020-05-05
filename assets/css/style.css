@@ -53,9 +53,16 @@
 
 .five-cards {
     color: #fff;
+    padding: 5px;
 }
 
 .five-cards .card-title {
     font-size: 1.2em;
     font-weight: 500;
+}
+
+.five-cards .icons {
+    max-width: 40px;
+    max-height: 40px;
+    margin: 0 auto;
 }
