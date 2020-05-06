@@ -1,19 +1,31 @@
-/* On first load or refresh */          // doing weird overwrites on reload!
-$(document).ready(function () {             // if conditional in searchSave()???
+/* On first load or refresh */
+$(document).ready(function () {
+
     // if localStorage is not empty, call fillFromStorage()
     if (localStorage.getItem("cities")) {
         fillFromStorage();
     }
-    // fillFromStorage() is doing a modified version of searchDisplay(), see line 193
+    // otherwise, empty storage means nothing happens until user generates a search
+
+    // fillFromStorage fills sidebar with anthything in localStorage
     function fillFromStorage() {
-        // grab city names from localStorage, parse and push into $pastCity
-        let $pastCity = localStorage.getItem("cities", JSON.stringify(searchHistory));
-        $pastCity = JSON.parse($pastCity);
-        searchHistory.push($pastCity)
-        // iterate through $pastCity, displaying in HTML
-        for (i = 0; i <= $pastCity.length; i++) {
-            $("#Recent-" + i).text($pastCity[i]);
+        // grab data, parse and push into searchHistory[], see                  line 176??
+        searchHistory = localStorage.getItem("cities", JSON.stringify(searchHistory));
+        searchHistory = JSON.parse(searchHistory);
+        // iterate through searchHistory, displaying in HTML
+        for (i = 0; i <= searchHistory.length; i++) {
+            $("#Recent-" + i).text(searchHistory[i]);
         }
+
+        // with sidebar populated, use highest index in searchHistory
+        // to display weather from last city typed into search bar
+        // similar method to searchPast(), see line                              198?
+        // var to hold last index value
+        let lastIndex = (searchHistory.length - 1);
+        // concat a jQuery selector & click listener that calls searchPast()
+        $("#Recent-" + lastIndex).on("click", searchPast);
+        // .trigger() method that creates a click on that #Recent-x
+        $("#Recent-" + lastIndex).trigger("click");
     }
 });
 
@@ -34,8 +46,8 @@ function searchCity() {
     let $city = (($(this).parent()).siblings("#city-search")).val();
 
     // empty search bar with setTimeout()
-    // we're also capturing this value in searchSave(),
-    // so we need it to not clear so fast that it doesn't get captured
+    // we're also capturing this value in searchSave()                                  line xxx
+    // so we need it to not clear so fast that it doesn't get captured there
     function clear() {
         $("#city-search").val("");
     }
@@ -76,8 +88,26 @@ function searchCity() {
             console.log(response);
 
             // UV Index is in this response, but we're assigning it to the #current-view area
+            // both value and btn classes will update to diplay UV index color per:
+            // https://www.weather.gov/rah/uv
             let $uv = response.current.uvi;
-            $("#uv-index").text("UV Index: " + $uv);
+            // var for displaying in html & grabbing the right color class
+            let $uvIndex = $("#uv-index");
+            $uvIndex.text($uv);
+            // if conditionals to add / remove btn classes, changing color
+            if ($uv <= 2) {
+                $uvIndex.addClass("btn-success").removeClass("btn-warning btn-hazard btn-danger");
+            }
+            else if ($uv <= 5) {
+                $uvIndex.addClass("btn-warning").removeClass("btn-success btn-hazard btn-danger");
+            }
+            // .btn-hazard is a custom class, riffing on Bootsrap, see style.css
+            else if ($uv <= 7) {
+                $uvIndex.addClass("btn-hazard").removeClass("btn-success btn-warning btn-danger");
+            }
+            else if ($uv <= 10) {
+                $uvIndex.addClass("btn-danger").removeClass("btn-success btn-warning btn-hazard");
+            }
 
             /* THe NEXT 90 LINES LOOK CRAZY! for-loops to clean it up some?
             see loop in searchDisplay() var */
@@ -172,45 +202,39 @@ function searchCity() {
     });
 }
 
-// searchSave() uses localStorage to manage recently searched cities in sidebar
-let $newCity = "";      // this is outside due to the commented-out for loop in searchDisplay
-// array to use in JSON / localStorage
+// array to use in searchSave() & searchDisplay()
 let searchHistory = [];
+
+// searchSave() uses localStorage to manage recently searched cities in sidebar
 function searchSave() {
-    // reusing same jQuery structure from searchCity()
-    $newCity = (($(this).parent()).siblings("#city-search")).val();
-    // load up array
+    // same jQuery selector from searchCity() puts value into $newCity
+    let $newCity = (($(this).parent()).siblings("#city-search")).val();
+    // push $newCity into searchHistory, but it may be a dupe so...
     searchHistory.push($newCity);
+    // new Set to keep only unique values, spread operator to make that an array
+    // thanks to youtuber Techsith for the tutorial: https://www.youtube.com/watch?v=dvPybpgk5Y4
+    searchHistory = [...new Set(searchHistory)];
     // put in localStorage
     localStorage.setItem("cities", JSON.stringify(searchHistory));
+    // display in HTML, see below
     searchDisplay();
 }
 
-
 // called by searchSave() after click listener, adds cities to sidebar
 function searchDisplay() {
-    // for loop to create new vars that we can concat into jQuery selectors
+    // for loop to create new vars & concat them into jQuery selectors
     for (i = 0; i <= searchHistory.length; i++) {
         // iterate through, displaying in HTML
         $("#Recent-" + i).text(searchHistory[i]);
     }
-
-    // was trying to look for dupes, but must be a better way
-
-    // for (i = 0; i <= searchHistory.length; i++) {
-    //     if (!searchHistory.includes($newCity)) {
-    //         let cityEntry = searchHistory[i];
-    //         // display in HTML
-    //         $("#Recent-" + i).text(cityEntry);
-    //     }
-    // }
 }
 
 // add listeners for loading weather from history
 let $pastClick = $(".past");
 $pastClick.on("click", searchPast);
 
-// searchPast copies text value of the button to the input bar, then runs searchCity()
+// searchPast() copies text value of the clicked button,
+// puts in the input bar, then runs searchCity() via triggered click
 function searchPast() {
     // var for text of past city
     let $oldCity = $(this).text();
@@ -219,3 +243,7 @@ function searchPast() {
     // this triggers the original click listener, above searchCity()
     $clicked.trigger("click");
 }
+
+
+/* CODE GRAVEYARD */
+// empty for now... wait 'til i start trying to loop the ajax stuff

@@ -34,18 +34,10 @@
                 </div>
                 <br>
                 <!-- search history, dynamically filled by js -->
-                <!-- this might change. a lot. -->
                 <div class="card search-history">
                     <ul class="list-group list-group-flush">
-                        <!-- <li class="list-group-item"><a href="" class="past" id="Recent-0">Your Search History</a></li>
-                        <li class="list-group-item"><a href="" class="past" id="Recent-1">&nbsp;</a></li>
-                        <li class="list-group-item"><a href="" class="past" id="Recent-2">&nbsp;</a></li>
-                        <li class="list-group-item"><a href="" class="past" id="Recent-3">&nbsp;</a></li>
-                        <li class="list-group-item"><a href="" class="past" id="Recent-4">&nbsp;</a></li>
-                        <li class="list-group-item"><a href="" class="past" id="Recent-5">&nbsp;</a></li>
-                        <li class="list-group-item"><a href="" class="past" id="Recent-6">&nbsp;</a></li>
-                        <li class="list-group-item"><a href="" class="past" id="Recent-7">&nbsp;</a></li> -->
-
+                        <!-- all these list items contain buttons that 
+                            receive text via functions in script.js -->
                         <li class="list-group-item past" id="Recent-0">Your Search History<button class="btn btn-link"
                                 type="button"></button></li>
                         <li class="list-group-item past" id="Recent-1"><button class="btn btn-link"
@@ -73,11 +65,11 @@
         <div class="col-sm-8">
             <!-- Current Conditionions View -->
             <div class="container">
-                <div class="card card-body" id="current-view">
+                <div class="card card-body current-view" id="current-view">
                     <div class="card-title" id="city-stats">
                         <li>
                             <!-- Current City name & weather icon -->
-                            <h4 id="city-name">See sidebar to start</h4>
+                            <h4 id="city-name">Nothing to show yet!</h4>
                         </li>
                         <img id="current-icon">
                         <!-- city & stats <p>s will be filled dynamically -->
@@ -85,12 +77,15 @@
                         <p id="temp">Temperature:</p>
                         <p id="humidity">Humidity:</p>
                         <p id="wind">Wind Speed:</p>
-                        <p id="uv-index">UV Index:</p>
+                        <!-- #uv-index will change colors based on uv range-->
+                        <p>UV Index: &nbsp; <button type="button" class="btn btn-sm 
+                            shadow-none" id="uv-index"></button>
+                        </p>
                     </div>
                 </div>
                 <!-- 5 Day Forecast -->
                 <div id="five-day">
-                    <h4>5 Day Forecast</h4>
+                    <h5>5 Day Forecast</h5>
                     <div class="row">
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">

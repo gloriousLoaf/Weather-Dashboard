@@ -6,7 +6,7 @@
 /* Navbar */ 
 .navbar-brand {
     font-size: 2em;
-    margin: -12px 0 -7px 0;
+    margin: -16px 0 -10px 0;
     padding-right: -20px;
 }
 
@@ -38,7 +38,7 @@
 }
 
 /* current city name, date */ 
-#city-stats li {
+#city-stats li{
     display: inline-block;
     list-style: none;
 }
@@ -57,19 +57,23 @@
     padding-top: 8px;
 }
 
-#city-stats #uv-index {
-    margin-bottom: -5px;
+#city-stats {
+    margin-top: -5px;
+}
+
+/* Custom class for UV Index
+    inspired by Bootrap btn classes */ 
+.btn-hazard {
+    background-color: coral;
 }
 
 /* 5 Day Forecast */ 
 .five-cards {
     color: #fff;
-    padding: 5px;
-    margin-top: 10px;
+    padding: 5px 5px 0 5px;
 }
 
 .five-cards .card-title {
-    font-size: 1.1em;
     font-weight: 500;
 }
 
