@@ -28,7 +28,8 @@
                     <input class="form-control shadow-none" id="city-search" type="text" placeholder="Where to next?">
                     <!-- append search button to input -->
                     <div class="input-group-append">
-                        <button class="btn btn-primary shadow-none" type="button"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-primary shadow-none search-button" type="button">
+                            <i class="fas fa-search"></i></button>
                     </div>
                 </div>
                 <br>
@@ -36,14 +37,31 @@
                 <!-- this might change. a lot. -->
                 <div class="card search-history">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Your Search History</li>
-                        <li class="list-group-item">&nbsp;</li>
-                        <li class="list-group-item">&nbsp;</li>
-                        <li class="list-group-item">&nbsp;</li>
-                        <li class="list-group-item">&nbsp;</li>
-                        <li class="list-group-item">&nbsp;</li>
-                        <li class="list-group-item">&nbsp;</li>
-                        <li class="list-group-item">&nbsp;</li>
+                        <!-- <li class="list-group-item"><a href="" class="past" id="Recent-0">Your Search History</a></li>
+                        <li class="list-group-item"><a href="" class="past" id="Recent-1">&nbsp;</a></li>
+                        <li class="list-group-item"><a href="" class="past" id="Recent-2">&nbsp;</a></li>
+                        <li class="list-group-item"><a href="" class="past" id="Recent-3">&nbsp;</a></li>
+                        <li class="list-group-item"><a href="" class="past" id="Recent-4">&nbsp;</a></li>
+                        <li class="list-group-item"><a href="" class="past" id="Recent-5">&nbsp;</a></li>
+                        <li class="list-group-item"><a href="" class="past" id="Recent-6">&nbsp;</a></li>
+                        <li class="list-group-item"><a href="" class="past" id="Recent-7">&nbsp;</a></li> -->
+
+                        <li class="list-group-item past" id="Recent-0">Your Search History<button class="btn btn-link"
+                                type="button"></button></li>
+                        <li class="list-group-item past" id="Recent-1"><button class="btn btn-link"
+                                type="button"></button></li>
+                        <li class="list-group-item past" id="Recent-2"><button class="btn btn-link"
+                                type="button"></button></li>
+                        <li class="list-group-item past" id="Recent-3"><button class="btn btn-link"
+                                type="button"></button></li>
+                        <li class="list-group-item past" id="Recent-4"><button class="btn btn-link"
+                                type="button"></button></li>
+                        <li class="list-group-item past" id="Recent-5"><button class="btn btn-link"
+                                type="button"></button></li>
+                        <li class="list-group-item past" id="Recent-6"><button class="btn btn-link"
+                                type="button"></button></li>
+                        <li class="list-group-item past" id="Recent-7"><button class="btn btn-link"
+                                type="button"></button></li>
                     </ul>
                 </div>
                 <div>&nbsp;</div>
@@ -58,10 +76,12 @@
                 <div class="card card-body" id="current-view">
                     <div class="card-title" id="city-stats">
                         <li>
-                            <!-- city & stats <p>s will be filled dynamically -->
+                            <!-- Current City name & weather icon -->
                             <h4 id="city-name">See sidebar to start</h4>
                         </li>
-                        <li id="city-time"></li>
+                        <img id="current-icon">
+                        <!-- city & stats <p>s will be filled dynamically -->
+                        <li id="city-date"></li>
                         <p id="temp">Temperature:</p>
                         <p id="humidity">Humidity:</p>
                         <p id="wind">Wind Speed:</p>
@@ -74,7 +94,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-title">Date</div>
+                                <div class="card-title" id="day-1">Date</div>
                                 <img class="icons" id="icon1">
                                 <p id="high1">High:</p>
                                 <p id="low1">Low:</p>
@@ -83,7 +103,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-title">Date</div>
+                                <div class="card-title" id="day-2">Date</div>
                                 <img class="icons" id="icon2">
                                 <p id="high2">High:</p>
                                 <p id="low2">Low:</p>
@@ -92,7 +112,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-title">Date</div>
+                                <div class="card-title" id="day-3">Date</div>
                                 <img class="icons" id="icon3">
                                 <p id="high3">High:</p>
                                 <p id="low3">Low:</p>
@@ -101,7 +121,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-title">Date</div>
+                                <div class="card-title" id="day-4">Date</div>
                                 <img class="icons" id="icon4">
                                 <p id="high4">High:</p>
                                 <p id="low4">Low:</p>
@@ -110,7 +130,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
-                                <div class="card-title">Date</div>
+                                <div class="card-title" id="day-5">Date</div>
                                 <img class="icons" id="icon5">
                                 <p id="high5">High:</p>
                                 <p id="low5">Low:</p>

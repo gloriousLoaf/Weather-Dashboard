@@ -1,17 +1,45 @@
-// Local time for searched City. This won't work yet, just displays user's local time
-let $cityTime = moment().format("LT dddd l");
-$("#city-time").text($cityTime);
+/* On first load or refresh */          // doing weird overwrites on reload!
+$(document).ready(function () {             // if conditional in searchSave()???
+    // if localStorage is not empty, call fillFromStorage()
+    if (localStorage.getItem("cities")) {
+        fillFromStorage();
+    }
+    // fillFromStorage() is doing a modified version of searchDisplay(), see line 193
+    function fillFromStorage() {
+        // grab city names from localStorage, parse and push into $pastCity
+        let $pastCity = localStorage.getItem("cities", JSON.stringify(searchHistory));
+        $pastCity = JSON.parse($pastCity);
+        searchHistory.push($pastCity)
+        // iterate through $pastCity, displaying in HTML
+        for (i = 0; i <= $pastCity.length; i++) {
+            $("#Recent-" + i).text($pastCity[i]);
+        }
+    }
+});
+
+// Today's Date in #current-view card
+let $cityDate = moment().format("l");
+$("#city-date").text($cityDate);
 
 /* City Search Functions */
 
 // click listener calls searchCity() and soon a function related to the .search-history sidebar
-let $clicked = $(".btn");
+let $clicked = $(".search-button");
 $clicked.on("click", searchCity);
+$clicked.on("click", searchSave);
 
-// searchCity()
+// searchCity() fills the Main View sections - #current-view card & #five-day cards
 function searchCity() {
-    // value we want in $city is from a sibling of .btn's parent
+    // value for new search from input is from a sibling of .btn's parent
     let $city = (($(this).parent()).siblings("#city-search")).val();
+
+    // empty search bar with setTimeout()
+    // we're also capturing this value in searchSave(),
+    // so we need it to not clear so fast that it doesn't get captured
+    function clear() {
+        $("#city-search").val("");
+    }
+    setTimeout(clear, 600);
 
     /* Query for Current Weather (#current-view) */
     let firstQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + $city + "&units=imperial&appid=c3632a824cb9d8b82f74d0ec35c2639b";
@@ -20,21 +48,24 @@ function searchCity() {
         method: "GET"
     }).then(function (response) {
         console.log(response);
-        // vars to hold city-stats values
+
+        // vars to hold city-stats, current temp, humidity, wind & icon
         let $currentTemp = parseInt(response.main.temp) + "°F";
         let $currentHum = response.main.humidity + "%";
         let $currentWind = parseInt(response.wind.speed) + "mph";
+        let $currentIcon = response.weather[0].icon;
+        let $currentIconURL = "http://openweathermap.org/img/w/" + $currentIcon + ".png";
 
         // display in html
         $("#city-name").text($city);
         $("#temp").text("Temperature: " + $currentTemp);
         $("#humidity").text("Humidity: " + $currentHum);
         $("#wind").text("Wind Speed: " + $currentWind);
+        $("#current-icon").attr({ "src": $currentIconURL, "alt": "Current Weather Icon" });
 
         // lat & lon for secondQueryURL below
         let lat = response.coord.lat;
         let lon = response.coord.lon;
-        console.log(lat, lon);
 
         /* Query for One Call API - this will give us our info for 5 Day Forecast cards */
         let secondQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=hourly&units=imperial&appid=c3632a824cb9d8b82f74d0ec35c2639b";
@@ -43,11 +74,43 @@ function searchCity() {
             method: "GET"
         }).then(function (response) {
             console.log(response);
+
             // UV Index is in this response, but we're assigning it to the #current-view area
             let $uv = response.current.uvi;
             $("#uv-index").text("UV Index: " + $uv);
 
-            /* for loop to clean up some of this var assignment and/or .text() methods? */
+            /* THe NEXT 90 LINES LOOK CRAZY! for-loops to clean it up some?
+            see loop in searchDisplay() var */
+
+            // Date Assignment - converting UNIX times in response 
+            // to human readable w/ moment.js
+            // get UNIX dt from response
+            let $day1 = response.daily[1].dt;
+            // convert to moment Obj
+            $day1 = moment.unix($day1);
+            // extract just the MM/DD/YYYY human readable date
+            $day1 = $day1.format("l");
+            // repeat for the rest of the 5 Day cards
+            let $day2 = response.daily[2].dt;
+            $day2 = moment.unix($day2);
+            $day2 = $day2.format("l");
+            let $day3 = response.daily[3].dt;
+            $day3 = moment.unix($day3);
+            $day3 = $day3.format("l");
+            let $day4 = response.daily[4].dt;
+            $day4 = moment.unix($day4);
+            $day4 = $day4.format("l");
+            let $day5 = response.daily[5].dt;
+            $day5 = moment.unix($day5);
+            $day5 = $day5.format("l");
+
+            // display dates in HTML
+            $("#day-1").text($day1);
+            $("#day-2").text($day2);
+            $("#day-3").text($day3);
+            $("#day-4").text($day4);
+            $("#day-5").text($day5);
+
             // vars for highTemps on cards
             let $highTemp1 = parseInt(response.daily[1].temp.max) + "°F";
             let $highTemp2 = parseInt(response.daily[2].temp.max) + "°F";
@@ -100,13 +163,59 @@ function searchCity() {
             let $icon4URL = "http://openweathermap.org/img/w/" + $icon4 + ".png";
             let $icon5URL = "http://openweathermap.org/img/w/" + $icon5 + ".png";
             // display in HTML
-            $("#icon1").attr("src", $icon1URL);
-            $("#icon2").attr("src", $icon2URL);
-            $("#icon3").attr("src", $icon3URL);
-            $("#icon4").attr("src", $icon4URL);
-            $("#icon5").attr("src", $icon5URL);
-
+            $("#icon1").attr({ "src": $icon1URL, "alt": "Day 1 Icon" });
+            $("#icon2").attr({ "src": $icon2URL, "alt": "Day 2 Icon" });
+            $("#icon3").attr({ "src": $icon3URL, "alt": "Day 3 Icon" });
+            $("#icon4").attr({ "src": $icon4URL, "alt": "Day 4 Icon" });
+            $("#icon5").attr({ "src": $icon5URL, "alt": "Day 5 Icon" });
         });
     });
+}
 
+// searchSave() uses localStorage to manage recently searched cities in sidebar
+let $newCity = "";      // this is outside due to the commented-out for loop in searchDisplay
+// array to use in JSON / localStorage
+let searchHistory = [];
+function searchSave() {
+    // reusing same jQuery structure from searchCity()
+    $newCity = (($(this).parent()).siblings("#city-search")).val();
+    // load up array
+    searchHistory.push($newCity);
+    // put in localStorage
+    localStorage.setItem("cities", JSON.stringify(searchHistory));
+    searchDisplay();
+}
+
+
+// called by searchSave() after click listener, adds cities to sidebar
+function searchDisplay() {
+    // for loop to create new vars that we can concat into jQuery selectors
+    for (i = 0; i <= searchHistory.length; i++) {
+        // iterate through, displaying in HTML
+        $("#Recent-" + i).text(searchHistory[i]);
+    }
+
+    // was trying to look for dupes, but must be a better way
+
+    // for (i = 0; i <= searchHistory.length; i++) {
+    //     if (!searchHistory.includes($newCity)) {
+    //         let cityEntry = searchHistory[i];
+    //         // display in HTML
+    //         $("#Recent-" + i).text(cityEntry);
+    //     }
+    // }
+}
+
+// add listeners for loading weather from history
+let $pastClick = $(".past");
+$pastClick.on("click", searchPast);
+
+// searchPast copies text value of the button to the input bar, then runs searchCity()
+function searchPast() {
+    // var for text of past city
+    let $oldCity = $(this).text();
+    // put it in the input field
+    $("#city-search").val($oldCity);
+    // this triggers the original click listener, above searchCity()
+    $clicked.trigger("click");
 }

@@ -11,27 +11,42 @@
 }
 
 /* Sidebar */ 
+/* search prompt text */ 
 #search-header {
     padding-top: 10px;
     padding-left: 2px;
 }
 
+/* search input */ 
 #city-search {
     margin-left: -15px;
 }
+
+/* search history links */ 
+.past {
+    color: #636c72;
+}
+
+.past:hover {
+    cursor: pointer;
+}
+
 
 /* Main View */ 
 #current-view {
     margin-top: 20px;
 }
 
+/* current city name, date */ 
 #city-stats li {
     display: inline-block;
     list-style: none;
 }
 
-#city-time {
+#city-date {
     float: right;
+    font-size: 1.4em;
+    font-weight: 600;
 }
 
 #city-stats p {
@@ -47,22 +62,19 @@
 }
 
 /* 5 Day Forecast */ 
-#five-day {
-    margin-top: 10px;
-}
-
 .five-cards {
     color: #fff;
     padding: 5px;
+    margin-top: 10px;
 }
 
 .five-cards .card-title {
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: 500;
 }
 
 .five-cards .icons {
-    max-width: 40px;
+    max-width: 50px;
     max-height: 40px;
     margin: 0 auto;
 }
