@@ -36,24 +36,20 @@
                 <!-- search history, dynamically filled by js -->
                 <div class="card search-history">
                     <ul class="list-group list-group-flush">
-                        <!-- all these list items contain buttons that 
-                            receive text via functions in script.js -->
-                        <li class="list-group-item past" id="Recent-0">Your Search History<button class="btn btn-link"
-                                type="button"></button></li>
-                        <li class="list-group-item past" id="Recent-1"><button class="btn btn-link"
-                                type="button"></button></li>
-                        <li class="list-group-item past" id="Recent-2"><button class="btn btn-link"
-                                type="button"></button></li>
-                        <li class="list-group-item past" id="Recent-3"><button class="btn btn-link"
-                                type="button"></button></li>
-                        <li class="list-group-item past" id="Recent-4"><button class="btn btn-link"
-                                type="button"></button></li>
-                        <li class="list-group-item past" id="Recent-5"><button class="btn btn-link"
-                                type="button"></button></li>
-                        <li class="list-group-item past" id="Recent-6"><button class="btn btn-link"
-                                type="button"></button></li>
-                        <li class="list-group-item past" id="Recent-7"><button class="btn btn-link"
-                                type="button"></button></li>
+                        <!-- all these list items receive text & button-like
+                            classes via functions in script.js -->
+                        <section>
+                            <li class="list-group-item" id="Recent-0">Your Search History</li>
+                            <li class="list-group-item" id="Recent-1">&nbsp;</li>
+                            <li class="list-group-item" id="Recent-2">&nbsp;</li>
+                            <li class="list-group-item" id="Recent-3">&nbsp;</li>
+                            <li class="list-group-item" id="Recent-4">&nbsp;</li>
+                            <li class="list-group-item" id="Recent-5">&nbsp;</li>
+                            <li class="list-group-item" id="Recent-6">&nbsp;</li>
+                            <li class="list-group-item" id="Recent-7">&nbsp;</li>
+                        </section>
+                        <button type="button" class="btn btn-dark shadow-none" id="clear-history">Clear
+                            History</button>
                     </ul>
                 </div>
                 <div>&nbsp;</div>
@@ -69,7 +65,7 @@
                     <div class="card-title" id="city-stats">
                         <li>
                             <!-- Current City name & weather icon -->
-                            <h4 id="city-name">Nothing to show yet!</h4>
+                            <h4 id="city-name">It's always sunny somewhere...</h4>
                         </li>
                         <img id="current-icon">
                         <!-- city & stats <p>s will be filled dynamically -->
@@ -77,16 +73,28 @@
                         <p id="temp">Temperature:</p>
                         <p id="humidity">Humidity:</p>
                         <p id="wind">Wind Speed:</p>
-                        <!-- #uv-index will change colors based on uv range-->
+                        <!-- #uv-index will change colors based on uv range, added classes
+                            and style to make this look like less like a button (no click) -->
                         <p>UV Index: &nbsp; <button type="button" class="btn btn-sm 
-                            shadow-none" id="uv-index"></button>
+                            shadow-none active" id="uv-index"></button>
                         </p>
                     </div>
                 </div>
                 <!-- 5 Day Forecast -->
+                <!-- Dates and weather stats dynamically set -->
                 <div id="five-day">
                     <h5>5 Day Forecast</h5>
                     <div class="row">
+                        <div class="col-sm">
+                            <div class="card bg-primary five-cards">
+                                <!-- id's are numbered 0-4 to make loop easier, see script.js -->
+                                <div class="card-title" id="day-0">Date</div>
+                                <img class="icons" id="icon0">
+                                <p id="high0">High:</p>
+                                <p id="low0">Low:</p>
+                                <p id="hum0">Humidity:</p>
+                            </div>
+                        </div>
                         <div class="col-sm">
                             <div class="card bg-primary five-cards">
                                 <div class="card-title" id="day-1">Date</div>
@@ -121,15 +129,6 @@
                                 <p id="high4">High:</p>
                                 <p id="low4">Low:</p>
                                 <p id="hum4">Humidity:</p>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="card bg-primary five-cards">
-                                <div class="card-title" id="day-5">Date</div>
-                                <img class="icons" id="icon5">
-                                <p id="high5">High:</p>
-                                <p id="low5">Low:</p>
-                                <p id="hum5">Humidity:</p>
                             </div>
                         </div>
                     </div>

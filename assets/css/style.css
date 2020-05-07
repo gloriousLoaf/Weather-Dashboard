@@ -4,6 +4,7 @@
 }
 
 /* Navbar */ 
+/* shrink it up a bit */ 
 .navbar-brand {
     font-size: 2em;
     margin: -16px 0 -10px 0;
@@ -11,19 +12,25 @@
 }
 
 /* Sidebar */ 
-/* search prompt text */ 
+/* Search Prompt text */ 
 #search-header {
     padding-top: 10px;
     padding-left: 2px;
 }
 
-/* search input */ 
+/* Search Input */ 
 #city-search {
     margin-left: -15px;
 }
 
-/* search history links */ 
-.past {
+/* Search History Links */ 
+
+/* in case people skip the shift key */ 
+.search-history {
+    text-transform: capitalize;
+}
+
+.past, #Recent-0 {
     color: #636c72;
 }
 
@@ -31,13 +38,16 @@
     cursor: pointer;
 }
 
-
 /* Main View */ 
 #current-view {
     margin-top: 20px;
 }
 
-/* current city name, date */ 
+/* Current City Name & Date */ 
+#city-name {
+    text-transform: capitalize;
+}
+
 #city-stats li{
     display: inline-block;
     list-style: none;
@@ -49,6 +59,7 @@
     font-weight: 600;
 }
 
+/* spacing out the stats */ 
 #city-stats p {
     padding: 3px 0;
 }
@@ -61,13 +72,33 @@
     margin-top: -5px;
 }
 
-/* Custom class for UV Index
+/* UV Index */ 
+#uv-index {
+    color: #fff;
+}
+
+#uv-index:hover {
+    cursor: default;
+}
+
+
+/* Custom classes for UV Index
     inspired by Bootrap btn classes */ 
 .btn-hazard {
     background-color: coral;
 }
 
-/* 5 Day Forecast */ 
+.btn-climate-change {
+    background-color: purple;
+}
+
+/* 5 Day Forecast */
+/* Heading */  
+#five-day h5 {
+    margin-top: 5px;
+}
+
+/* Card font & space */ 
 .five-cards {
     color: #fff;
     padding: 5px 5px 0 5px;
@@ -77,6 +108,7 @@
     font-weight: 500;
 }
 
+/* Weather Icons */ 
 .five-cards .icons {
     max-width: 50px;
     max-height: 40px;
