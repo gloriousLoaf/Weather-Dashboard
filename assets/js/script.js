@@ -49,10 +49,12 @@ $("input").keyup(function () {
 // searchCity() fills the Main View sections - #current-view card & #five-day cards
 function searchCity() {
     // value for new search from input is from a sibling of .btn's parent
-    let $city = (($(this).parent()).siblings("#city-search")).val();
+    // making it lowercase to help check for dupes later, see line 217
+    let $city = (($(this).parent()).siblings("#city-search")).val().toLowerCase();
+    console.log($city);
 
     // empty search bar with setTimeout()
-    // we're also capturing this value in searchSave() line 209
+    // we're also capturing this value in searchSave() line 210
     // so we need it to not clear so fast that it doesn't get captured there
     function clear() {
         $("#city-search").val("");
@@ -208,7 +210,8 @@ let searchHistory = [];
 // searchSave() uses localStorage to manage recently searched cities in sidebar
 function searchSave() {
     // same jQuery selector from searchCity() puts value into $newCity
-    let $newCity = (($(this).parent()).siblings("#city-search")).val();
+    let $newCity = (($(this).parent()).siblings("#city-search")).val().toLowerCase();
+    console.log($newCity);
     // push $newCity into searchHistory, but it may be a dupe so...
     searchHistory.push($newCity);
     // new Set to keep only unique values, spread operator to make that an array

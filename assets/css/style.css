@@ -25,7 +25,8 @@
 
 /* Search History Links */ 
 
-/* in case people skip the shift key */ 
+/* script uses .toLowerCase() to manage history,
+    but we want to display it capitalized */ 
 .search-history {
     text-transform: capitalize;
 }
