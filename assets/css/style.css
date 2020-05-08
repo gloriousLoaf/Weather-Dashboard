@@ -18,6 +18,11 @@
     padding-left: 2px;
 }
 
+/* Search Button */ 
+.search-button {
+    border-radius: 5px;
+}
+
 /* Search Input */ 
 #city-search {
     margin-left: -15px;

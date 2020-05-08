@@ -54,7 +54,7 @@ function searchCity() {
     console.log($city);
 
     // empty search bar with setTimeout()
-    // we're also capturing this value in searchSave() line 210
+    // we're also capturing this value in searchSave() line 209
     // so we need it to not clear so fast that it doesn't get captured there
     function clear() {
         $("#city-search").val("");
@@ -84,11 +84,11 @@ function searchCity() {
         $("#wind").text("Wind Speed: " + $currentWind);
         $("#current-icon").attr({ "src": $currentIconURL, "alt": "Current Weather Icon" });
 
-        // lat & lon for secondQueryURL below
+        // lat & lon for secondQueryURL, directly below
         let lat = response.coord.lat;
         let lon = response.coord.lon;
 
-        /* Query for One Call API - this will give us our info for 5 Day Forecast cards */
+        /* Query for One Call API - info for 5 Day Forecast cards */
         let secondQueryURL =
             "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon +
             "&exclude=hourly&units=imperial&appid=c3632a824cb9d8b82f74d0ec35c2639b";
@@ -105,7 +105,6 @@ function searchCity() {
             // var for displaying in html & grabbing the right color class
             let $uvIndex = $("#uv-index");
             $uvIndex.text($uv);
-            $uvIndex.blur();
             // if conditionals to add / remove btn classes, changing color
             // originally one line like $uvIndex.addClass().removeClass() but just too long
             if ($uv <= 2) {
@@ -126,7 +125,7 @@ function searchCity() {
                 $uvIndex.removeClass("btn-success btn-warning btn-hazard btn-climate-change");
             }
             // .btn-climate-change, like .btn-hazard, is custom
-            // and it's funny because it is sad :(
+            // and it's cheeky because it is sad :(
             else if ($uv >= 11) {
                 $uvIndex.addClass("btn-climate-change");
                 $uvIndex.removeClass("btn-success btn-warning btn-hazard btn-danger");
@@ -151,7 +150,6 @@ function searchCity() {
                 // display dates in HTML
                 $("#day-" + i).text(days[i]);
             }
-            console.log(days);
 
             // array for highTemps on cards, parsed off decimals
             let highTemps = [];
@@ -211,22 +209,21 @@ let searchHistory = [];
 function searchSave() {
     // same jQuery selector from searchCity() puts value into $newCity
     let $newCity = (($(this).parent()).siblings("#city-search")).val().toLowerCase();
-    console.log($newCity);
     // push $newCity into searchHistory, but it may be a dupe so...
     searchHistory.push($newCity);
     // new Set to keep only unique values, spread operator to make that an array
-    // thanks to youtuber Techsith for the tutorial: https://www.youtube.com/watch?v=dvPybpgk5Y4
+    // thanks to youtuber Techsith for the tutorial:
+    // https://www.youtube.com/watch?v=dvPybpgk5Y4
     searchHistory = [...new Set(searchHistory)];
     // put in localStorage
     localStorage.setItem("cities", JSON.stringify(searchHistory));
-    // display in HTML, see below
+    // display in HTML, see direcly below
     searchDisplay();
 }
 
 // called by searchSave() after click listener, adds cities to sidebar
 function searchDisplay() {
     // for loop to create new vars & concat them into jQuery selectors
-    // legit not sure why - 1, just trial and error
     for (i = 0; i <= searchHistory.length - 1; i++) {
         // iterate through, displaying in HTML
         $("#Recent-" + i).text(searchHistory[i]);
@@ -242,7 +239,7 @@ function searchDisplay() {
 $("section").on("click", ".past", searchPast);
 
 // searchPast() copies text value of the clicked button,
-// puts in the input bar, then runs searchCity() via triggered click
+// puts it in the input bar, then runs searchCity() via triggered click
 function searchPast() {
     // var for text of past city
     let $oldCity = $(this).text();
@@ -254,7 +251,7 @@ function searchPast() {
 
 // Clearing the sidebar
 
-// clearHistory clears local storage, empties sidebar history
+// clearHistory() clears local storage, empties sidebar history
 function clearHistory() {
     localStorage.clear();
     // empty main array
