@@ -193,7 +193,7 @@ function searchCity() {
             icons = icons.filter(item => item);
             // filling iconsURL[] w/ unique URLs using icons[] indices
             for (i = 0; i < icons.length; i++) {
-                iconsURL[i] = "http://openweathermap.org/img/w/" + icons[i] + ".png";
+                iconsURL[i] = "https://openweathermap.org/img/w/" + icons[i] + ".png";
             }
             for (i = 0; i < iconsURL.length; i++) {
                 $("#icon" + i).attr({ "src": iconsURL[i], "alt": "Daily Weather Icon" });
